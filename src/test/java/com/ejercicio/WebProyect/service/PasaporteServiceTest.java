@@ -3,8 +3,10 @@ package com.ejercicio.WebProyect.service;
 import com.ejercicio.WebProyect.entities.Pasaporte;
 import com.ejercicio.WebProyect.repository.PasaporteRepository;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,6 +14,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 class PasaporteServiceTest {
     @Mock
     private PasaporteRepository pasaporteRepository;
@@ -27,6 +30,7 @@ class PasaporteServiceTest {
         List<Pasaporte> foundPasaportes = pasaporteService.listarPasaportes();
 
         assertNotNull(foundPasaportes);
+        assertFalse(foundPasaportes.isEmpty());
         verify(pasaporteRepository, times(1)).findAll();
     }
 
