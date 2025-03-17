@@ -1,6 +1,5 @@
 package com.ejercicio.WebProyect.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -18,7 +17,7 @@ import java.util.List;
 @Setter
 public class Pasajero {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nombre;

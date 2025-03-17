@@ -3,9 +3,10 @@ package com.ejercicio.WebProyect.service;
 import com.ejercicio.WebProyect.entities.Reserva;
 import com.ejercicio.WebProyect.repository.ReservaRepository;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 class ReservaServiceTest {
 
     @Mock
@@ -21,10 +23,6 @@ class ReservaServiceTest {
 
     @InjectMocks
     private ReservaService reservaService;
-
-    public ReservaServiceTest() {
-        MockitoAnnotations.openMocks(this);
-    }
 
     @Test
     void buscarPorCodigo() {

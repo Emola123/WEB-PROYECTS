@@ -3,9 +3,10 @@ package com.ejercicio.WebProyect.service;
 import com.ejercicio.WebProyect.entities.Vuelo;
 import com.ejercicio.WebProyect.repository.VueloRepository;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 class VueloServiceTest {
 
     @Mock
@@ -21,10 +23,6 @@ class VueloServiceTest {
 
     @InjectMocks
     private VueloService vueloService;
-
-    public VueloServiceTest() {
-        MockitoAnnotations.openMocks(this);
-    }
 
     @Test
     void listarVuelos() {
@@ -41,9 +39,10 @@ class VueloServiceTest {
         Vuelo vuelo = new Vuelo(1L, "AV123", "Bogotá", "Bucaramanga", null, null);
         when(vueloRepository.findByCodigo("AV123")).thenReturn(Optional.of(vuelo));
 
-        Optional<Vuelo> foundVuelo = vueloService.buscarCodigoVuelo("AV123");
+        Vuelo foundVuelo = vueloService.buscarCodigoVuelo("AV123")
+                        .orElseThrow(() -> new RuntimeException("Vuelo no encontrado"));
         assertNotNull(foundVuelo);
-        assertEquals("AV123", foundVuelo.get().getCodigo());
+        assertEquals("AV123", foundVuelo.getCodigo());
         verify(vueloRepository, times(1)).findByCodigo("AV123");
     }
 
@@ -52,9 +51,10 @@ class VueloServiceTest {
         Vuelo vuelo = new Vuelo(1L, "AV123", "Bogotá", "Bucaramanga", null, null);
         when(vueloRepository.findByOrigen("Bogotá")).thenReturn(Optional.of(vuelo));
 
-        Optional<Vuelo> foundVuelo = vueloService.buscarOrigenVuelo("Bogotá");
+        Vuelo foundVuelo = vueloService.buscarOrigenVuelo("Bogotá")
+                        .orElseThrow(() -> new RuntimeException("Vuelo no encontrado"));
         assertNotNull(foundVuelo);
-        assertEquals("Bogotá", foundVuelo.get().getOrigen());
+        assertEquals("Bogotá", foundVuelo.getOrigen());
         verify(vueloRepository, times(1)).findByOrigen("Bogotá");
     }
 
@@ -63,9 +63,10 @@ class VueloServiceTest {
         Vuelo vuelo = new Vuelo(1L, "AV123", "Bogotá", "Bucaramanga", null, null);
         when(vueloRepository.findByDestino("Bucaramanga")).thenReturn(Optional.of(vuelo));
 
-        Optional<Vuelo> foundVuelo = vueloService.buscarDestinoVuelo("Bucaramanga");
+        Vuelo foundVuelo = vueloService.buscarDestinoVuelo("Bucaramanga")
+                        .orElseThrow(() -> new RuntimeException("Vuelo no encontrado"));
         assertNotNull(foundVuelo);
-        assertEquals("Bucaramanga", foundVuelo.get().getDestino());
+        assertEquals("Bucaramanga", foundVuelo.getDestino());
         verify(vueloRepository, times(1)).findByDestino("Bucaramanga");
     }
 

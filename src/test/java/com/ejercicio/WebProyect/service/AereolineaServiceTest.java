@@ -3,15 +3,17 @@ package com.ejercicio.WebProyect.service;
 import com.ejercicio.WebProyect.entities.Aereolinea;
 import com.ejercicio.WebProyect.repository.AereolineaRepository;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 class AereolineaServiceTest {
 
     @Mock
@@ -19,10 +21,6 @@ class AereolineaServiceTest {
 
     @InjectMocks
     private AereolineaService aereolineaService;
-
-    public AereolineaServiceTest() {
-        MockitoAnnotations.openMocks(this);
-    }
 
     @Test
     void guardarAereolinea() {
@@ -33,7 +31,7 @@ class AereolineaServiceTest {
 
         assertNotNull(aereolineaCreada.getId());
         assertEquals("Aereolinea", aereolineaCreada.getNombre());
-        assertEquals(null, aereolineaCreada.getVuelos());
+        assertNull(aereolineaCreada.getVuelos());
         verify(aereolineaRepository, times(1)).save(aereolinea);
     }
 

@@ -23,6 +23,17 @@ public class AereolineaService {
         return aereolineaRepository.findByNombre(nombre);
     }
 
+    public Aereolinea actualizarAereolinea(Long id, Aereolinea aereolinea) {
+        Aereolinea existente = aereolineaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Aerolinea no encontrada"));
+        existente.setNombre(aereolinea.getNombre());
+        return aereolineaRepository.save(existente);
+    }
+
+    public void eliminarAereolinea(Long id) {
+        aereolineaRepository.deleteById(id);
+    }
+
 
     public Aereolinea guardarAereolinea(Aereolinea aereolinea){
         return aereolineaRepository.save(aereolinea);

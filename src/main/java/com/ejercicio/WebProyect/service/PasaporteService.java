@@ -23,6 +23,18 @@ public class PasaporteService {
         return pasaporteRepository.findByNumero(numero);
     }
 
+    public Pasaporte actualizarPasaporte(Long id, Pasaporte pasaporte) {
+        Pasaporte existente = pasaporteRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Pasaporte no encontrado"));
+        existente.setNumero(pasaporte.getNumero());
+        existente.setPasajero(pasaporte.getPasajero());
+        return pasaporteRepository.save(existente);
+    }
+
+    public void eliminarPasaporte(Long id) {
+        pasaporteRepository.deleteById(id);
+    }
+
     public Pasaporte guardarPasaporte(Pasaporte pasaporte) {
         return pasaporteRepository.save(pasaporte);
     }

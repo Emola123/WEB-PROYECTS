@@ -5,7 +5,6 @@ import com.ejercicio.WebProyect.repository.PasaporteRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,10 +18,6 @@ class PasaporteServiceTest {
 
     @InjectMocks
     private PasaporteService pasaporteService;
-
-    public PasaporteServiceTest(){
-        MockitoAnnotations.openMocks(this);
-    }
 
     @Test
     void listarPasaportes() {
@@ -40,10 +35,11 @@ class PasaporteServiceTest {
         Pasaporte pasaporte = new Pasaporte(1L, "AV12345", null);
         when(pasaporteRepository.findByNumero("AV12345")).thenReturn(Optional.of(pasaporte));
 
-        Optional<Pasaporte> foundPasapote = pasaporteService.buscarPorNumero("AV12345");
+        Pasaporte foundPasapote = pasaporteService.buscarPorNumero("AV12345")
+                        .orElseThrow(() -> new RuntimeException("Pasaporte no encontrado"));
 
-        assertNotNull(foundPasapote.isPresent());
-        assertEquals("AV12345", foundPasapote.get().getNumero());
+        assertNotNull(foundPasapote);
+        assertEquals("AV12345", foundPasapote.getNumero());
         verify(pasaporteRepository, times(1)).findByNumero("AV12345");
 
     }

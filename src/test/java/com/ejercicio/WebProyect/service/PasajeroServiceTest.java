@@ -3,9 +3,10 @@ package com.ejercicio.WebProyect.service;
 import com.ejercicio.WebProyect.entities.Pasajero;
 import com.ejercicio.WebProyect.repository.PasajeroRepository;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,16 +15,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 class PasajeroServiceTest {
     @Mock
     private PasajeroRepository pasajeroRepository;
 
     @InjectMocks
     private PasajeroService pasajeroService;
-
-    public PasajeroServiceTest(){
-        MockitoAnnotations.openMocks(this);
-    }
 
     @Test
     void buscarPasajeroPorNombre() {
@@ -66,8 +64,8 @@ class PasajeroServiceTest {
 
         assertNotNull(pasajeroCreado.getId());
         assertEquals("Francisco", pasajeroCreado.getNombre());
-        assertEquals(null, pasajeroCreado.getPasaporte());
-        assertEquals(null, pasajeroCreado.getReservas());
+        assertNull(pasajeroCreado.getPasaporte());
+        assertNull(pasajeroCreado.getReservas());
         verify(pasajeroRepository, times(1)).save(pasajero);
     }
 }

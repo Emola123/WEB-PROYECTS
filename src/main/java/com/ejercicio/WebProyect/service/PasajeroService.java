@@ -23,6 +23,20 @@ public class PasajeroService {
         return pasajeroRepository.findAll();
     }
 
+    public Pasajero actualizarPasajero(Long id, Pasajero pasajero) {
+        Pasajero existente = pasajeroRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Pasajero no encontrado"));
+        existente.setNombre(pasajero.getNombre());
+        existente.setPasaporte(pasajero.getPasaporte());
+        existente.setReservas(pasajero.getReservas());
+        return pasajeroRepository.save(existente);
+    }
+
+    public void eliminarPasajero(Long id) {
+        pasajeroRepository.deleteById(id);
+    }
+
+
     public Pasajero guardarPasajero(Pasajero pasajero) {
         return pasajeroRepository.save(pasajero);
     }

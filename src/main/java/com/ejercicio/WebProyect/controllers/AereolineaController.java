@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/aereolineas")
 public class AereolineaController {
@@ -26,6 +27,18 @@ public class AereolineaController {
     public Optional<Aereolinea> buscarPorNombre(@RequestParam("nombre") String nombre) {
         return aereolineaService.buscarPorNombre(nombre);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Aereolinea> actualizarAereolinea(@PathVariable Long id, @RequestBody Aereolinea aereolinea) {
+        return ResponseEntity.ok(aereolineaService.actualizarAereolinea(id, aereolinea));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminarAereolinea(@PathVariable Long id) {
+        aereolineaService.eliminarAereolinea(id);
+        return ResponseEntity.noContent().build();
+    }
+
 
     @PostMapping
     public Aereolinea guardarAereolinea(@RequestBody Aereolinea aereolinea) {

@@ -23,6 +23,21 @@ public class ReservaService {
         return reservaRepository.findAll();
     }
 
+    public Reserva actualizarReserva(Long id, Reserva reserva) {
+        Reserva existente = reservaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Reserva no encontrada"));
+        existente.setId(reserva.getId());
+        existente.setCodigo(reserva.getCodigo());
+        existente.setVuelo(reserva.getVuelo());
+        existente.setIdVuelo(reserva.getIdVuelo());
+        existente.setPasajero(reserva.getPasajero());
+        return reservaRepository.save(existente);
+    }
+
+    public void eliminarReserva(Long id) {
+        reservaRepository.deleteById(id);
+    }
+
     public Reserva guardarReserva(Reserva reserva) {
         return reservaRepository.save(reserva);
     }

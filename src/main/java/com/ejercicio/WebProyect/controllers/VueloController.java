@@ -2,11 +2,13 @@ package com.ejercicio.WebProyect.controllers;
 
 import com.ejercicio.WebProyect.entities.Vuelo;
 import com.ejercicio.WebProyect.service.VueloService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/vuelos")
 public class VueloController {
@@ -36,6 +38,16 @@ public class VueloController {
         return vueloService.buscarDestinoVuelo(destino);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Vuelo> actualizarVuelo(@PathVariable Long id, @RequestBody Vuelo vuelo) {
+        return ResponseEntity.ok(vueloService.actualizarVuelo(id, vuelo));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminarVuelo(@PathVariable Long id) {
+        vueloService.eliminarVuelo(id);
+        return ResponseEntity.noContent().build();
+    }
 
     @PostMapping
     public Vuelo guardarVuelo(@RequestBody Vuelo vuelo) {

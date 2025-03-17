@@ -31,6 +31,21 @@ public class VueloService {
         return vueloRepository.findByDestino(destino);
     }
 
+    public Vuelo actualizarVuelo(Long id, Vuelo vuelo){
+        Vuelo existente = vueloRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Vuelo no encontrado"));
+        existente.setOrigen(vuelo.getOrigen());
+        existente.setDestino(vuelo.getDestino());
+        existente.setCodigo(vuelo.getCodigo());
+        existente.setAereolinea(vuelo.getAereolinea());
+        existente.setReservas(vuelo.getReservas());
+        return vueloRepository.save(existente);
+    }
+
+    public void eliminarVuelo(Long id){
+        vueloRepository.deleteById(id);
+    }
+
     public Vuelo guardarVuelo(Vuelo vuelo) {
         return vueloRepository.save(vuelo);
     }

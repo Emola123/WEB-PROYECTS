@@ -8,8 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface AereolineaRepository extends JpaRepository<Aereolinea, Long> {
-    @Override
-    Optional<Aereolinea> findById(Long aLong);
-
     Optional<Aereolinea> findByNombre(String nombre);
 }

@@ -15,7 +15,7 @@ import lombok.Setter;
 @Setter
 public class Reserva {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "id_vuelo", insertable = false, updatable = false)
