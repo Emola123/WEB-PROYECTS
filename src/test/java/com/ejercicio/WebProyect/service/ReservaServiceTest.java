@@ -26,7 +26,7 @@ class ReservaServiceTest {
 
     @Test
     void buscarPorCodigo() {
-        Reserva reserva = new Reserva(1L, 1L, "AV12345", null, null);
+        Reserva reserva = new Reserva(1L, "AV12345", null, null);
         when(reservaRepository.findByCodigo("AV12345")).thenReturn(Optional.of(reserva));
 
         Optional<Reserva> foundReserva = reservaService.buscarPorCodigo("AV12345");
@@ -37,7 +37,7 @@ class ReservaServiceTest {
 
     @Test
     void listarReservas() {
-        Reserva reserva = new Reserva(1L, 1L, "AV12345", null, null);
+        Reserva reserva = new Reserva(1L, "AV12345", null, null);
         when(reservaRepository.findAll()).thenReturn(List.of(reserva));
 
         List<Reserva> foundReservas = reservaService.listarReservas();
@@ -47,14 +47,13 @@ class ReservaServiceTest {
 
     @Test
     void guardarReserva() {
-        Reserva reserva = new Reserva(1L, 1L, "AV12345", null, null);
+        Reserva reserva = new Reserva(1L, "AV12345", null, null);
         when(reservaRepository.save(any(Reserva.class))).thenReturn(reserva);
 
         Reserva foundReserva = reservaService.guardarReserva(reserva);
 
         assertNotNull(foundReserva.getId());
         assertEquals(1L, foundReserva.getId());
-        assertEquals(1L, foundReserva.getIdVuelo());
         assertEquals("AV12345", foundReserva.getCodigo());
         assertNull(foundReserva.getVuelo());
         assertNull(foundReserva.getPasajero());

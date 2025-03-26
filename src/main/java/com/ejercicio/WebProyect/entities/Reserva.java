@@ -1,6 +1,8 @@
 package com.ejercicio.WebProyect.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,13 +15,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
+@JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
+        allowGetters = true)
 public class Reserva {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "id_vuelo", insertable = false, updatable = false)
-    private Long idVuelo;
 
     private String codigo;
 
@@ -29,7 +30,8 @@ public class Reserva {
     private Vuelo vuelo;
 
     @ManyToOne
-    @JoinColumn(name = "id_pasajero") // Relación con Pasajero
+    @JoinColumn(name = "id_pasajero")
+    @JsonManagedReference
     private Pasajero pasajero;
 
 }

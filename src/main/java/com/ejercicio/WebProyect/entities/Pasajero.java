@@ -1,5 +1,7 @@
 package com.ejercicio.WebProyect.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -15,6 +17,8 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
+@JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
+        allowGetters = true)
 public class Pasajero {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +31,7 @@ public class Pasajero {
     private Pasaporte pasaporte;
 
     @OneToMany(mappedBy = "pasajero", cascade = CascadeType.ALL)
+    @JsonBackReference
     private List<Reserva> reservas;
 
 }

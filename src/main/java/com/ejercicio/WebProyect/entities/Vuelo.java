@@ -1,6 +1,8 @@
 package com.ejercicio.WebProyect.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -16,6 +18,8 @@ import java.util.List;
 @Table(name = "vuelos")
 @Getter
 @Setter
+@JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
+        allowGetters = true)
 public class Vuelo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -23,6 +23,11 @@ public class PasajeroController {
         return pasajeroService.buscarPasajeros();
     }
 
+    @GetMapping("/{id}")
+    public Optional<Pasajero> buscarPasajeroPorId(@PathVariable Long id) {
+        return pasajeroService.buscarPorId(id);
+    }
+
     @GetMapping("/nombre")
     public Optional<Pasajero> buscarPasajero(@RequestParam("nombre") String nombre) {
         return pasajeroService.buscarPasajeroPorNombre(nombre);

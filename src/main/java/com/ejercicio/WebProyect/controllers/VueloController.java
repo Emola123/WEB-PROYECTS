@@ -18,6 +18,11 @@ public class VueloController {
         this.vueloService = vueloService;
     }
 
+    @GetMapping("/{id}")
+    public Optional<Vuelo> getVueloById(@PathVariable Long id) {
+        return vueloService.buscarVueloPorId(id);
+    }
+
     @GetMapping
     public List<Vuelo> listarVuelos() {
         return vueloService.listarVuelos();

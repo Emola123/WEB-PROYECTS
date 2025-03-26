@@ -18,6 +18,11 @@ public class AereolineaController {
         this.aereolineaService = aereolineaService;
     }
 
+    @GetMapping("/{id}")
+    public Optional<Aereolinea> buscarAereolineaId(@PathVariable Long id) {
+        return aereolineaService.buscarAereolineaId(id);
+    }
+
     @GetMapping
     public List<Aereolinea> listarAereolineas() {
         return aereolineaService.listarAereolineas();

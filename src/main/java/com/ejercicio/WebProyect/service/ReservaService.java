@@ -1,18 +1,31 @@
 package com.ejercicio.WebProyect.service;
 
+import com.ejercicio.WebProyect.entities.Pasajero;
 import com.ejercicio.WebProyect.entities.Reserva;
+import com.ejercicio.WebProyect.repository.PasajeroRepository;
 import com.ejercicio.WebProyect.repository.ReservaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class ReservaService {
+    @Autowired
     private final ReservaRepository reservaRepository;
 
-    public ReservaService(ReservaRepository reservaRepository) {
+    @Autowired
+    private PasajeroRepository pasajeroRepository;
+
+    public ReservaService(ReservaRepository reservaRepository, PasajeroRepository pasajeroRepository) {
         this.reservaRepository = reservaRepository;
+        this.pasajeroRepository = pasajeroRepository;
+    }
+
+    public Optional<Reserva> buscarReservaId(Long id) {
+        return reservaRepository.findById(id);
     }
 
     public Optional<Reserva> buscarPorCodigo(String codigo) {
@@ -26,13 +39,18 @@ public class ReservaService {
     public Reserva actualizarReserva(Long id, Reserva reserva) {
         Reserva existente = reservaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Reserva no encontrada"));
-        existente.setId(reserva.getId());
+
         existente.setCodigo(reserva.getCodigo());
         existente.setVuelo(reserva.getVuelo());
-        existente.setIdVuelo(reserva.getIdVuelo());
-        existente.setPasajero(reserva.getPasajero());
+
+        Pasajero pasajero = reserva.getPasajero();
+        if (pasajero.getId() == null) {
+            pasajero = pasajeroRepository.save(pasajero);
+        }
+        existente.setPasajero(pasajero);
         return reservaRepository.save(existente);
     }
+
 
     public void eliminarReserva(Long id) {
         reservaRepository.deleteById(id);

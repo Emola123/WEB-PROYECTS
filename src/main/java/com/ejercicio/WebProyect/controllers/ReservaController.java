@@ -18,6 +18,11 @@ public class ReservaController {
         this.reservaService = reservaService;
     }
 
+    @GetMapping("/{id}")
+    public Optional<Reserva> getReservaId(@PathVariable Long id) {
+        return reservaService.buscarReservaId(id);
+    }
+
     @GetMapping
     public List<Reserva> getAllReservas() {
         return reservaService.listarReservas();

@@ -19,6 +19,11 @@ public class PasaporteController {
         this.pasaporteService = pasaporteService;
     }
 
+    @GetMapping("/{id}")
+    public Optional<Pasaporte> getPasaporteById(@PathVariable Long id) {
+        return pasaporteService.buscarPorId(id);
+    }
+
     @GetMapping
     public List<Pasaporte> listarPasaportes() {
         return pasaporteService.listarPasaportes();
